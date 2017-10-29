@@ -1,0 +1,1384 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeeSharpTools.JY.Report</name>
+    </assembly>
+    <members>
+        <member name="T:SeeSharpTools.JY.Report.ExcelReport">
+            <summary> 
+            <para>Excel report operation .</para>
+            <para>Chinese Simplified: Excel输出打印模块。</para>
+            </summary>  
+        </member>
+        <member name="P:SeeSharpTools.JY.Report.ExcelReport.SheetPrefixName">
+            <summary> 
+            <para>WorkSheet prefix names, such as the prefix name "page", then the WorkSheet name is "page -1, page -2..." .</para>
+            <para>WorkSheet前缀名，比如：前缀名为“页”，那么WorkSheet名称依次为“页-1，页-2...”</para>
+            </summary>  
+        </member>
+        <member name="P:SeeSharpTools.JY.Report.ExcelReport.WorkSheetCount">
+            <summary> 
+            <para>The number of workSheet.</para>
+            <para>WorkSheet数量 .</para>
+            </summary>  
+        </member>
+        <member name="P:SeeSharpTools.JY.Report.ExcelReport.TempletFilePath">
+            <summary> 
+            <para>Excel template file path.</para>
+            <para>Excel模板文件路径  .</para>
+            </summary>  
+        </member>
+        <member name="P:SeeSharpTools.JY.Report.ExcelReport.FilePath">
+            <summary> 
+            <para>Excel output file path.</para>
+            <para>输出Excel文件路径  .</para>
+            </summary>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.#ctor(System.String,System.String)">
+            <summary>  
+            <para>The constructor, an existing Excel workbook as a template, and specify the output path.</para>
+            <para>Chinese Simplified: 构造函数，将一个已有Excel工作簿作为模板，并指定输出路径。</para>
+            </summary>  
+            <param name="templetFilePath">
+            <para>Excel template file path.</para>  
+            <param>Chinese Simplified: Excel模板文件路径。</param>  
+            </param>
+            <param name="outputFilePath">
+            <para>Output Excel file path.</para>  
+            <param>Chinese Simplified: 输出Excel文件路径。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.#ctor(System.String)">
+            <summary>  
+            <para>The constructor, open an existing Excel workbook.</para>
+            <para>Chinese Simplified: 构造函数，打开一个已有的工作簿</para>
+            </summary>  
+            <param name="fileName">
+            <para>Excel file name.</para>  
+            <param>Chinese Simplified: Eexcel文件名称。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.#ctor">
+            <summary>  
+            <para>The constructor, creat a new Excel workbook.</para>
+            <para>Chinese Simplified: 构造函数，新建一个工作簿</para>
+            </summary>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.#ctor(System.Boolean)">
+            <summary>  
+            <para>The constructor, creat a new Excel workbook.</para>
+            <para>Chinese Simplified: 构造函数，新建一个工作簿</para>
+            </summary>  
+            <param name="visible">
+            <para>whether open Excel auto.</para>  
+            <param>Chinese Simplified: 是否自动打开Excel。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DataTableToExcel(System.Data.DataTable,System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>DataTable data written to the Excel file (automatic paging).</para>
+            <para>Chinese Simplified: 将DataTable数据写入Excel文件（自动分页）。</para>
+            </summary>  
+            <param name="dt">
+            <para>DataTable.</para>  
+            <param>Chinese Simplified: DataTable。</param>  
+            </param>
+            <param name="rows">
+            <para>How many lines of data each WorkSheet writes.</para>  
+            <param>Chinese Simplified: 每个WorkSheet写入多少行数据。</param>  
+            </param> 
+            <param name="top">
+            <para>Table data start line index.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引。</param>  
+            </param>
+            <param name="left">
+            <para>Table data start column index.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DataTableToExcel(System.Data.DataTable,System.Int32,System.Int32)">
+            <summary>  
+            <para>DataTable data written to the Excel file (without automatic paging).</para>
+            <para>Chinese Simplified: 将DataTable数据写入Excel文件（不分页）。</para>
+            </summary>  
+            <param name="dt">
+            <para>DataTable.</para>  
+            <param>Chinese Simplified: DataTable。</param>  
+            </param>
+            <param name="top">
+            <para>Table data start line index.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引。</param>  
+            </param>
+            <param name="left">
+            <para>Table data start column index.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DataTableToExcel(System.Data.DataTable,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>DataTable data is written to the Excel file (automatic paging, and specify the column index to merge).</para>
+            <para>Chinese Simplified: 将DataTable数据写入Excel文件（自动分页，并指定要合并的列索引）。</para>
+            </summary>  
+            <param name="dt">
+            <para>DataTable.</para>  
+            <param>Chinese Simplified: DataTable。</param>  
+            </param>
+            <param name="rows">
+            <para>How many lines of data each WorkSheet writes.</para>  
+            <param>Chinese Simplified: 每个WorkSheet写入多少行数据。</param>  
+            </param> 
+            <param name="top">
+            <para>Table data start line index.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引。</param>  
+            </param>
+            <param name="left">
+            <para>Table data start column index.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引。</param>  
+            </param> 
+            <param name="mergeColumnIndex">
+            <para>DataTable is to merge with peers always index from the beginning of 0.</para>  
+            <param>Chinese Simplified: DataTable中要合并相同行的列索引，从0开始。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.String[0:,0:],System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Array data written to the Excel file (automatic paging).</para>
+            <para>Chinese Simplified:  将二维数组数据写入Excel文件（自动分页）。</para>
+            </summary>  
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 二维数组。</param>  
+            </param>
+            <param name="rows">
+            <para>How many lines of data each WorkSheet writes.</para>  
+            <param>Chinese Simplified: 每个WorkSheet写入多少行数据。</param>  
+            </param> 
+            <param name="row">
+            <para>Table data start line index.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.String[0:,0:],System.Int32,System.Int32)">
+            <summary>  
+            <para>Array data written to the Excel file (without automatic paging).</para>
+            <para>Chinese Simplified:  将二维数组数据写入Excel文件（不分页）。</para>
+            </summary>  
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 二维数组。</param>  
+            </param>
+            <param name="row">
+            <para>Table data start line index.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引,从1计算。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引，从1计算。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.String[],System.Int32,System.Int32)">
+            <summary>  
+            <para>Array data written to the Excel file (without automatic paging).</para>
+            <para>Chinese Simplified:  将一维数组数据写入Excel文件（不分页）。</para>
+            </summary>  
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 一维数组。</param>  
+            </param>
+            <param name="row">
+            <para>Table data start line index.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引,从1计算。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引，从1计算。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.Double[0:,0:],System.Int32,System.Int32)">
+            <summary>  
+            <para>Array data written to the Excel file (without automatic paging).</para>
+            <para>Chinese Simplified:  将二维数组数据写入Excel文件（不分页）。</para>
+            </summary>  
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 二维数组。</param>  
+            </param>
+            <param name="row">
+            <para>Table data start line index.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引,从1计算。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引，从1计算。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.Double[],System.Int32,System.Int32)">
+            <summary>  
+            <para>Array data written to the Excel file (without automatic paging).</para>
+            <para>Chinese Simplified:  将一维数组数据写入Excel文件（不分页）。</para>
+            </summary>  
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 一维数组。</param>  
+            </param>
+            <param name="row">
+            <para>Table data start line index.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引,从1计算。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引，从1计算。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.String[0:,0:],System.Int32,System.Int32,System.Boolean)">
+            <summary>  
+            <para>Array data written to the Excel file (without automatic paging).</para>
+            <para>Chinese Simplified:  将二维数组数据写入Excel文件（不分页）。</para>
+            </summary>  
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 二维数组。</param>  
+            </param>
+            <param name="row">
+            <para>Table data start line index,start from 1.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引，从1计算。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index,start from 1.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引，从1计算。</param>  
+            </param> 
+            <param name="isFormula">
+            <para>Fill data need to be calculated.</para>  
+            <param>Chinese Simplified: 填充的数据是否需要计算。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.String[0:,0:],System.Int32,System.Int32,System.Boolean,System.Int32)">
+            <summary>  
+            将二维数组数据写入Excel文件（不分页），合并指定列的相同行  
+            </summary>  
+            <param name="arr">二维数组</param>  
+            <param name="row">行索引</param>  
+            <param name="column">列索引</param>  
+            <param name="isFormula">填充的数据是否需要计算</param>  
+            <param name="mergeColumnIndex">需要合并行的列索引</param>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.Int32,System.String[0:,0:],System.Int32,System.Int32)">
+            <summary>  
+            <para>Array data written to the Excel file (without automatic paging).</para>
+            <para>Chinese Simplified:  将二维数组数据写入Excel文件（不分页）。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of worksheet.</para>  
+            <param>Chinese Simplified: 工作表索引。</param>  
+            </param>
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 二维数组。</param>  
+            </param>
+            <param name="row">
+            <para>Table data start line index,,start from 1.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引,从1计算。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index,,start from 1.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引,从1计算。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcel(System.String[0:,0:],System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            将二维数组数据写入Excel文件（自动分页，并指定要合并的列索引）  
+            </summary>  
+            <param name="arr">二维数组</param>  
+            <param name="rows">每个WorkSheet写入多少行数据</param>  
+            <param name="row">行索引</param>  
+            <param name="column">列索引</param>  
+            <param name="mergeColumnIndex">数组的二维索引，相当于DataTable的列索引，索引从0开始</param>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcelPlot(System.Double[],System.Int32,System.Int32)">
+            <summary>
+            将一维数组数据写入Excel文件，同时画出图标  
+            </summary>
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 二维数组。</param>  
+            </param>
+            <param name="row">
+            <para>Table data start line index,start from 1.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引，从1计算。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index,start from 1.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引，从1计算。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ArrayToExcelPlot(System.Double[0:,0:],System.Int32,System.Int32)">
+            <summary>
+            将二维数组数据写入Excel文件，同时画出图标  
+            </summary>
+            <param name="arr">
+            <para>Two dimensional array.</para>  
+            <param>Chinese Simplified: 二维数组。</param>  
+            </param>
+            <param name="row">
+            <para>Table data start line index,start from 1.</para>  
+            <param>Chinese Simplified: 表格数据起始行索引，从1计算。</param>  
+            </param>
+            <param name="column">
+            <para>Table data start column index,start from 1.</para>  
+            <param>Chinese Simplified: 表格数据起始列索引，从1计算。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ChangeCurrentWorkSheet(System.Int32)">
+            <summary>  
+            <para>Change the current worksheet.</para>
+            <para>Chinese Simplified:  改变当前工作表。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of worksheet.</para>  
+            <param>Chinese Simplified: 工作表索引。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.HiddenWorkSheet(System.String)">
+            <summary>  
+            <para>Hide a worksheet with the specified name.</para>
+            <para>Chinese Simplified: 隐藏指定名称的工作表。</para>
+            </summary>  
+            <param name="sheetName">
+            <para>The name of worksheet.</para>  
+            <param>Chinese Simplified: 工作表名称。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.HiddenWorkSheet(System.Int32)">
+            <summary>  
+            <para>Hide a worksheet with the specified index.</para>
+            <para>Chinese Simplified: 隐藏指定索引的工作表。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of worksheet.</para>  
+            <param>Chinese Simplified: 工作表索引。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.CopyWorkSheets(System.String,System.Int32)">
+            <summary>  
+            <para>Copies a copy of the worksheet that specifies the number of copies after the worksheet with the specified name.</para>
+            <para>Chinese Simplified: 在指定名称的工作表后面拷贝指定个数的该工作表的副本，并重命名。</para>
+            </summary>  
+            <param name="sheetName">
+            <para>The name of worksheet.</para>  
+            <param>Chinese Simplified: 工作表名称。</param>  
+            </param>
+            <param name="sheetCount">
+            <para>The number of worksheets.</para>  
+            <param>Chinese Simplified: 工作表个数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.CopyWorkSheet(System.Int32,System.Int32,System.String)">
+            <summary>  
+            <para>Copy a worksheet to another worksheet and rename.</para>
+            <para>Chinese Simplified: 将一个工作表拷贝到另一个工作表后面，并重命名。</para>
+            </summary>  
+            <param name="srcSheetIndex">
+            <para>The scource index of copy worksheet.</para>  
+            <param>Chinese Simplified: 拷贝源工作表索引。</param>  
+            </param>
+            <param name="aimSheetIndex">
+            <para>Refer to the location sheet index, and the new worksheet is copied to the worksheet.</para>  
+            <param>Chinese Simplified: 参照位置工作表索引，新工作表拷贝在该工作表后面。</param>  
+            </param>
+            <param name="newSheetName">
+            <para>new work sheet name.</para>  
+            <param>Chinese Simplified: 新工作表名称。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DeleteWorkSheet(System.String)">
+            <summary>  
+            <para>Delete worksheet based on name.</para>
+            <para>Chinese Simplified: 根据名称删除工作表。</para>
+            </summary>  
+            <param name="sheetName">
+            <para>The name of worksheet.</para>  
+            <param>Chinese Simplified: 工作表名称。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DeleteWorkSheet(System.Int32)">
+            <summary>  
+            <para>Delete worksheet based on index.</para>
+            <para>Chinese Simplified: 根据索引删除工作表。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of worksheet.</para>  
+            <param>Chinese Simplified: 工作表索引。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetTextBox(System.String,System.String)">
+            <summary>  
+            <para>Writes data to the specified text box for each WorkSheet operation.</para>
+            <para>Chinese Simplified: 向指定文本框写入数据，对每个WorkSheet操作。</para>
+            </summary>  
+            <param name="textboxName">
+            <para>Text box name.</para>  
+            <param>Chinese Simplified: 文本框名称。</param>  
+            </param>
+            <param name="text">
+            <para>The text to be written.</para>  
+            <param>Chinese Simplified: 要写入的文本。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetTextBox(System.Int32,System.String,System.String)">
+            <summary>  
+            <para>Writes data to the specified text box for special WorkSheet operation.</para>
+            <para>Chinese Simplified: 向指定文本框写入数据，对指定WorkSheet操作。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of sheet.</para>  
+            <param>Chinese Simplified: 工作表索引。</param>  
+            </param>
+            <param name="textboxName">
+            <para>Text box name.</para>  
+            <param>Chinese Simplified: 文本框名称。</param>  
+            </param>
+            <param name="text">
+            <para>The text to be written.</para>  
+            <param>Chinese Simplified: 要写入的文本。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetTextBoxes(System.Collections.Hashtable)">
+            <summary>  
+            <para>Writes data to the specified text box for each WorkSheet operation.</para>
+            <para>Chinese Simplified: 向指定文本框写入数据，对每个WorkSheet操作。</para>
+            </summary>  
+            <param name="ht">
+            <para>Hashtable key to save the text box and ID data.</para>  
+            <param>Chinese Simplified: Hashtable的键值对保存文本框的ID和数据。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetTextBoxes(System.Int32,System.Collections.Hashtable)">
+            <summary>  
+            <para>Writes data to the specified text box for special WorkSheet operation.</para>
+            <para>Chinese Simplified: 向指定文本框写入数据，对指定WorkSheet操作。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of sheet.</para>  
+            <param>Chinese Simplified: 工作表索引。</param>  
+            </param>
+            <param name="ht">
+            <para>Hashtable key to save the text box and ID data.</para>  
+            <param>Chinese Simplified: Hashtable的键值对保存文本框的ID和数据。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.InsertChart(System.String,System.String,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            设置图形显示,使用方法Insert("A1","B200")
+            </summary>
+            <param name="start">
+            <para>The Row and Column of start.</para>  
+            <param>Chinese Simplified: 开始的行和列，用Excel方法表示，比如说A1。</param>  
+            </param>
+            <param name="end">
+            <para>The Row and Column of end.</para>  
+            <param>Chinese Simplified: 结束的行和列，用Excel方法表示，比如说B10。</param>  
+            </param>
+            <param name="Left">
+            <para>The Location of chart.</para>  
+            <param>Chinese Simplified: chart的位置，单位是像素。</param>  
+            </param>
+            <param name="Top">
+            <para>The Location of chart.</para>  
+            <param>Chinese Simplified: chart的位置，单位是像素。</param>  
+            </param>
+            <param name="chartWidth">
+            <para>The width of chart.</para>  
+            <param>Chinese Simplified: chart的宽度。</param>  
+            </param>
+            <param name="chartHeight">
+            <para>The height of chart.</para>  
+            <param>Chinese Simplified: chart的高度。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetCells(System.Int32,System.Int32,System.String)">
+            <summary>  
+            <para>Writes data to the cell to the current WorkSheet operation.</para>
+            <para>Chinese Simplified: 向单元格写入数据，对当前WorkSheet操作  。</para>
+            </summary>  
+            <param name="row">
+            <para>The index of row.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="column">
+            <para>he index of column..</para>  
+            <param>Chinese Simplified: 列索引。</param>  
+            </param>
+            <param name="text">
+            <para>The text to be written.</para>  
+            <param>Chinese Simplified: 要写入的文本。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetCells(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>  
+            <para>Writes data to the cell to the special WorkSheet operation.</para>
+            <para>Chinese Simplified: 向单元格写入数据，对当前WorkSheet操作  。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of worksheet.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="rowIndex">
+            <para>The index of row.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="columnIndex">
+            <para>he index of column..</para>  
+            <param>Chinese Simplified: 列索引。</param>  
+            </param>
+            <param name="text">
+            <para>The text to be written.</para>  
+            <param>Chinese Simplified: 要写入的文本。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetCells(System.Collections.Hashtable)">
+            <summary>  
+            <para>Writes data to the specified cell box for each WorkSheet operation.</para>
+            <para>Chinese Simplified: 向单元格写入数据，对每个WorkSheet操作。</para>
+            </summary>  
+            <param name="ht">
+            <para>Hashtable key to save the text box and ID data.</para>  
+            <param>Chinese Simplified: Hashtable的键值对保存文本框的ID和数据。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetCells(System.Int32,System.Collections.Hashtable)">
+            <summary>  
+            <para>Writes data to the specified cell box for specified WorkSheet operation.</para>
+            <para>Chinese Simplified: 向单元格写入数据，对指定WorkSheet操作。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of sheet.</para>  
+            <param>Chinese Simplified: 工作表索引。</param>  
+            </param>
+            <param name="ht">
+            <para>Hashtable key to save the text box and ID data.</para>  
+            <param>Chinese Simplified: Hashtable的键值对保存文本框的ID和数据。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetCells(System.Int32,System.String[])">
+            <summary>  
+            设置单元格为可计算的  
+            </summary>  
+            <remarks>  
+            如果Excel的单元格格式设置为数字，日期或者其他类型时，需要设置这些单元格的FormulaR1C1属性，  
+            否则写到这些单元格的数据将不会按照预先设定的格式显示  
+            </remarks>  
+            <param name="arr">保存单元格的位置索引（行索引和列索引用“,”隔开）和数据</param>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SetCells(System.String,System.Collections.Hashtable)">
+            <summary>  
+            <para>Writes data to the specified cell box for specified WorkSheet operation.</para>
+            <para>Chinese Simplified: 向单元格写入数据，对指定WorkSheet操作。</para>
+            </summary>  
+            <param name="sheetName">
+            <para>The name of sheet.</para>  
+            <param>Chinese Simplified: 工作表索引。</param>  
+            </param>
+            <param name="ht">
+            <para>Hashtable key to save the text box and ID data.</para>  
+            <param>Chinese Simplified: Hashtable的键值对保存文本框的ID和数据。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.MergeCells(System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>  
+            <para>Merge cells, and assign to each WorkSheet operation.</para>
+            <para>Chinese Simplified: 合并单元格，并赋值，对每个WorkSheet操作。</para>
+            </summary>  
+            <param name="beginRowIndex">
+            <para>The start row index.</para>  
+            <param>Chinese Simplified: 开始行索引。</param>  
+            </param>
+            <param name="beginColumnIndex">
+            <para>The start column index.</para>  
+            <param>Chinese Simplified: 开始列索引。</param>  
+            </param>
+            <param name="endRowIndex">
+            <para>The end row index.</para>  
+            <param>Chinese Simplified: 结束行索引。</param>  
+            </param>
+            <param name="endColumnIndex">
+            <para>The end column index.</para>  
+            <param>Chinese Simplified: 结束列索引。</param>  
+            </param>
+            <param name="text">
+            <para>The value text after MergeCells.</para>  
+            <param>Chinese Simplified: 合并后Range的值。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.MergeCells(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>  
+            <para>Merge cells, and assign to specialed WorkSheet operation.</para>
+            <para>Chinese Simplified: 合并单元格，并赋值，对指定WorkSheet操作。</para>
+            </summary>  
+            <param name="sheetIndex">
+            <para>The index of sheet.</para>  
+            <param>Chinese Simplified: WorkSheet索引。</param>  
+            </param>
+            <param name="beginRowIndex">
+            <para>The start row index.</para>  
+            <param>Chinese Simplified: 开始行索引。</param>  
+            </param>
+            <param name="beginColumnIndex">
+            <para>The start column index.</para>  
+            <param>Chinese Simplified: 开始列索引。</param>  
+            </param>
+            <param name="endRowIndex">
+            <para>The end row index.</para>  
+            <param>Chinese Simplified: 结束行索引。</param>  
+            </param>
+            <param name="endColumnIndex">
+            <para>The end column index.</para>  
+            <param>Chinese Simplified: 结束列索引。</param>  
+            </param>
+            <param name="text">
+            <para>The value text after MergeCells.</para>  
+            <param>Chinese Simplified: 合并后Range的值。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.MergeRows(System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Merge rows, and assign to each WorkSheet operation.</para>
+            <para>Chinese Simplified: 将指定索引列的数据相同的行合并，对每个WorkSheet操作。</para>
+            </summary>  
+            <param name="columnIndex">
+            <para>The  column index.</para>  
+            <param>Chinese Simplified: 列索引。</param>  
+            </param>
+            <param name="beginRowIndex">
+            <para>The start row index.</para>  
+            <param>Chinese Simplified: 开始行索引。</param>  
+            </param>
+            <param name="endRowIndex">
+            <para>The end row index.</para>  
+            <param>Chinese Simplified: 结束行索引。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.MergeRows(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Merge rows, and assign to specified WorkSheet operation.</para>
+            <para>Chinese Simplified: 将指定索引列的数据相同的行合并，对指定WorkSheet操作。</para>
+            </summary>
+            <param name="sheetIndex">
+            <para>The worksheet index.</para>  
+            <param>Chinese Simplified: WorkSheet索引。</param>  
+            </param>
+            <param name="columnIndex">
+            <para>The  column index.</para>  
+            <param>Chinese Simplified: 列索引。</param>  
+            </param>
+            <param name="beginRowIndex">
+            <para>The start row index.</para>  
+            <param>Chinese Simplified: 开始行索引。</param>  
+            </param>
+            <param name="endRowIndex">
+            <para>The end row index.</para>  
+            <param>Chinese Simplified: 结束行索引。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.InsertRows(System.Int32,System.Int32)">
+            <summary>  
+            <para>Insert (specify the number of rows on the specified row).</para>
+            <para>Chinese Simplified:插行（在指定行上面插入指定数量行）。</para>
+            </summary>
+            <param name="rowIndex">
+            <para>The row index.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.InsertRows(System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Insert (specify the number of rows on the specified worsheet).</para>
+            <para>Chinese Simplified:插行（在指定WorkSheet指定行上面插入指定数量行）。</para>
+            </summary>
+            <param name="sheetIndex">
+            <para>The worksheet index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="rowIndex">
+            <para>The row index.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.CopyRows(System.Int32,System.Int32)">
+            <summary>  
+            <para>Copy (specify the number of rows on the specified worsheet).</para>
+            <para>Chinese Simplified:复制行（在指定行下面复制指定数量行）。</para>
+            </summary>
+            <param name="rowIndex">
+            <para>The row index.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.CopyRows(System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Copy (specify the number of rows on the specified worsheet).</para>
+            <para>Chinese Simplified:复制行（在指定WorkSheet指定行下面复制指定数量行） 。</para>
+            </summary>
+            <param name="sheetIndex">
+            <para>The worksheet index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="rowIndex">
+            <para>The row index.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DeleteRows(System.Int32,System.Int32)">
+            <summary>  
+            <para>Delete rows.</para>
+            <para>Chinese Simplified:删除行（ 。</para>
+            </summary>
+            <param name="rowIndex">
+            <para>The row index.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DeleteRows(System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Delete rows.</para>
+            <para>Chinese Simplified:删除行（ 。</para>
+            </summary>
+            <param name="sheetIndex">
+            <para>The worksheet index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="rowIndex">
+            <para>The row index.</para>  
+            <param>Chinese Simplified: 行索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.InsertColumns(System.Int32,System.Int32)">
+            <summary>  
+            <para>Insert column.</para>
+            <para>Chinese Simplified:插列（在指定列右边插入指定数量列) 。</para>
+            </summary>
+            <param name="columnIndex">
+            <para>The column index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.InsertColumns(System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Insert column.</para>
+            <para>Chinese Simplified:插列（在指定WorkSheet指定列右边插入指定数量列） 。</para>
+            </summary>
+            <param name="sheetIndex">
+            <para>The worksheet index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="columnIndex">
+            <para>The column index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.CopyColumns(System.Int32,System.Int32)">
+            <summary>  
+            <para>Copy column.</para>
+            <para>Chinese Simplified:复制列（在指定列右边复制指定数量列）。</para>
+            </summary>
+            <param name="columnIndex">
+            <para>The column index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.CopyColumns(System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Copy column.</para>
+            <para>Chinese Simplified:复制列（在指定WorkSheet指定列右边复制指定数量列） 。</para>
+            </summary>
+            <param name="sheetIndex">
+            <para>The worksheet index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="columnIndex">
+            <para>The column index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DeleteColumns(System.Int32,System.Int32)">
+            <summary>  
+            <para>Delete column.</para>
+            <para>Chinese Simplified:删除列 。</para>
+            </summary>
+            <param name="columnIndex">
+            <para>The column index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.DeleteColumns(System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Delete column.</para>
+            <para>Chinese Simplified:删除列 。</para>
+            </summary>
+            <param name="sheetIndex">
+            <para>The worksheet index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="columnIndex">
+            <para>The column index.</para>  
+            <param>Chinese Simplified: worksheet索引。</param>  
+            </param>
+            <param name="count">
+            <para>Rows count.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.Hide">
+            <summary>  
+            <para>Hide Excel.</para>
+            <para>Chinese Simplified:将Excel隐藏。</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.Show">
+            <summary>  
+            <para>Show Excel.</para>
+            <para>Chinese Simplified:将Excel显示。</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ReadCell(System.Int32,System.Int32)">
+             <summary>
+            返回指定单元格的内容
+             </summary>
+             <param name="iRow">定位的行</param>
+             <param name="iCol">定位的列</param>
+             <returns>返回指定单元格的内容</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ReadCell(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            返回指定单元格的内容
+            </summary>
+            <param name="startRow">定位开始Range的Cell的行</param>
+            <param name="startCol">定位开始Range的Cell的列</param>
+            <param name="endRow">定位结束Range的Cell的行</param>
+            <param name="endCol">定位结束Range的Cell的列</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ReadCell(System.String)">
+            <summary>
+            得到指定单元格的内容
+            </summary>
+            <param name="cell">指定的单元格比如 A1,A2</param>
+            <returns>返回指定的内容</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ReadColumn(System.String,System.String)">
+            <summary>
+            读取一个连续区域的Cell的值(矩形区域，包含一行或一列,或多行，多列)，返回一个一维字符串数组。
+            </summary>
+            <param name="startCell">StartCell是要写入区域的左上角单元格</param>
+            <param name="endCell">EndCell是要写入区域的右下角单元格</param>
+            <returns>值的集合</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ReadColumn(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            读取一个连续区域的Cell的值(矩形区域，包含一行或一列,或多行，多列)，返回一个一维字符串数组。
+            </summary>
+            <param name="startRow">定位开始Range的Cell的行</param>
+            <param name="startCol">定位开始Range的Cell的列</param>
+            <param name="endRow">定位结束Range的Cell的行</param>
+            <param name="endCol">定位结束Range的Cell的列</param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ReadMultiColumns(System.String,System.String)">
+            <summary>
+            读取一个连续区域的Cell的值(矩形区域，包含一行或一列,或多行，多列)，返回一个二维字符串数组。
+            </summary>
+            <param name="startCell">startCell是要写入区域的左上角单元格</param>
+            <param name="endCell">endCell是要写入区域的右下角单元格</param>
+            <returns>值的集合</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:SeeSharpTools.JY.Report.ExcelReport.ReadMultiColumns(System.Int32,System.Int32,System.Int32,System.Int32)" -->
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ExcelToDataTable(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="startCell"></param>
+            <param name="endCell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ReadCurrentRegion">
+            <summary>
+            读取当前活动工作簿的所有数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ExcelToDataTable(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="startRow"></param>
+            <param name="startCol"></param>
+            <param name="endRow"></param>
+            <param name="endCol"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.ReadMultiSheets">
+            <summary>
+            读取一个Excel文件的多个workSheet，返回一个DataSet实例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.GetRange(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            根据行列的定位，返回选定的单元格。因为Range 是通过Cell来定位的，而Cell需要2个参数定位，所以需要四个参数。               
+            </summary>
+            <param name="iStartRow">定位开始Range的Cell的行</param>
+            <param name="iStartCol">定位开始Range的Cell的列</param>
+            <param name="iEndRow">定位结束Range的Cell的行</param>
+            <param name="iEndCol">定位结束Range的Cell的列</param>
+            <returns>返回指定范围的Range</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.GetRange(System.String)">
+            <summary>
+            返回指定的单元格
+            </summary>
+            <param name="cell">指定的单元格</param>
+            <returns>返回指定的单元格</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.GetRange(System.String,System.String)">
+            <summary>
+            返回一个单元格的范围
+            </summary>
+            <param name="startCell">开始的单元格坐标</param>
+            <param name="endCell">结束的单元格坐标</param>
+            <returns>返回指定的单元格范围</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.LetterToInt(System.String)">
+            <summary>  
+            将Excel列的字母索引值转换成整数索引值  
+            </summary>  
+            <param name="letter"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.IntToLetter(System.Int32)">
+            <summary>  
+            将Excel列的整数索引值转换为字符索引值  
+            </summary>  
+            <param name="n"></param>  
+            <returns></returns>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.OutputExcelFile">
+            <summary>  
+            <para>Output excel file and exit.</para>
+            <para>Chinese Simplified:输出Excel文件并退出 。</para>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.OutputFile(System.String)">
+            <summary>  
+            <para>Output file format.</para>
+            <para>Chinese Simplified:输出指定格式的文件（支持格式：HTML，CSV，TEXT，EXCEL）  。</para>
+            </summary>  
+            <param name="format">HTML，CSV，TEXT，EXCEL，XML</param>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SaveFile">
+            <summary>  
+            <para>Save file .</para>
+            <para>Chinese Simplified:保存文件。</para>
+            </summary>   @"e:\4564.xlsx"
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SaveAsFile">
+            <summary>  
+            <para>Save as file .</para>
+            <para>Chinese Simplified:另存文件。</para>
+            </summary>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SaveAsFile(System.String)">
+            <summary>  
+            <para>Save as excel as special format .</para>
+            <para>Chinese Simplified:将Excel文件另存为指定格式。</para>
+            </summary>  
+            <param name="format">HTML，CSV，TEXT，EXCEL，XML</param>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SaveFile(System.String)">
+            <summary>  
+            <para>Save as file .</para>
+            <para>Chinese Simplified:另存文件。</para>
+            </summary>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.SaveAsFile(System.String,System.String)">
+            <summary>  
+            <para>Save as file at format.</para>
+            <para>Chinese Simplified:将Excel文件另存为指定格式 。</para>
+            </summary>
+            <param name="fileName">
+            <para>File name.</para>  
+            <param>Chinese Simplified: 文件名。</param>  
+            </param>
+            <param name="format">
+            <para>File format,HTML，CSV，TEXT，EXCEL，XML.</para>  
+            <param>Chinese Simplified: HTML，CSV，TEXT，EXCEL，XML。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.MergeCells(Microsoft.Office.Interop.Excel.Worksheet,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>  
+            合并单元格，并赋值，对指定WorkSheet操作  
+            </summary>  
+            <param name="beginRowIndex">开始行索引</param>  
+            <param name="beginColumnIndex">开始列索引</param>  
+            <param name="endRowIndex">结束行索引</param>  
+            <param name="endColumnIndex">结束列索引</param>  
+            <param name="text">合并后Range的值</param>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.MergeRows(Microsoft.Office.Interop.Excel.Worksheet,System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            将指定索引列的数据相同的行合并，对指定WorkSheet操作  
+            </summary>  
+            <param name="columnIndex">要合并的列索引</param>  
+            <param name="beginRowIndex">合并开始行索引</param>  
+            <param name="rows">要合并的行数</param>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.GetSheetCount(System.Int32,System.Int32)">
+            <summary>  
+            计算WorkSheet数量  
+            </summary>  
+            <param name="rowCount">记录总行数</param>  
+            <param name="rows">每WorkSheet行数</param>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.GetWindowThreadProcessId(System.IntPtr,System.Int32@)">
+            <summary>
+            结束EXCEL.EXE进程的方法
+            </summary>
+            <param name="m_objExcel">EXCEL对象</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.ExcelReport.Close">
+            <summary>  
+            <para>Dispose Resource.</para>
+            <para>Chinese Simplified:释放资源 。</para>
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.Report.WordReport">
+            <summary> 
+            <para>Word report operation based on template.</para>
+            <para>Chinese Simplified: 根据模板进行Word报告的操作。</para>
+            </summary>  
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.CreateNewDocument(System.String)">
+            <summary>  
+            <para>Create a new document by using a template.</para>
+            <para>Chinese Simplified: 通过模板创建新文档。</para>
+            </summary>  
+            <param name="filePath">
+            <para>Template file path</para>  
+            <param>Chinese Simplified: 模板文件路径</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.SaveDocument(System.String)">
+            <summary>  
+            <para>Save a new document.</para>
+            <para>Chinese Simplified: 保存新文件。</para>
+            </summary>  
+            <param name="filePath">
+            <para>Save document file path</para>  
+            <param>Chinese Simplified: 保存文件路径</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.InsertValue(System.String,System.String)">
+            <summary>  
+            <para>Insert vaule at bookmark.</para>
+            <para>Chinese Simplified: 在书签处插入值。</para>
+            </summary>  
+            <param name="bookmark">
+            <para>Bookmark String</para>  
+            <param>Chinese Simplified: 书签字符串名称</param>  
+            </param>
+            <param name="value">
+            <para>Insert value</para>  
+            <param>Chinese Simplified: 插入数值</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.InsertTable(System.String,System.Int32,System.Int32,System.Single)">
+            <summary>  
+            <para>Insert Table at bookmark.</para>
+            <para>Chinese Simplified: 在书签处插表格。</para>
+            </summary>  
+            <param name="bookmark">
+            <para>Bookmark String.</para>  
+            <param>Chinese Simplified: 书签字符串名称。</param>  
+            </param>
+            <param name="rows">
+            <para>The rows of talbe.</para>  
+            <param>Chinese Simplified: 表格行数。</param>  
+            </param>
+            <param name="columns">
+            <para>The columns of talbe</para>  
+            <param>Chinese Simplified: 表格列数。</param>  
+            </param>
+            <param name="width">
+            <para>The width of border.</para>  
+            <param>Chinese Simplified: 边框宽度.</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.MergeCell(Microsoft.Office.Interop.Word.Table,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>  
+            <para>Merge Cell of Table.</para>
+            <para>Chinese Simplified: 合并单元格。</para>
+            </summary>  
+            <param name="table">
+            <para>Table name.</para>  
+            <param>Chinese Simplified: 表格名称。</param>  
+            </param>
+            <param name="row1">
+            <para>The start row of talbe merge.</para>  
+            <param>Chinese Simplified: 开始行号。</param>  
+            </param>
+            <param name="column1">
+            <para>The start column of talbe merge.</para>  
+            <param>Chinese Simplified: 开始列号。</param>  
+            </param>
+            <param name="row2">
+            <para>The end row of talbe merge.</para>  
+            <param>Chinese Simplified: 结束行号.</param>  
+            </param>
+            <param name="column2">
+            <para>The end column of talbe merge.</para>  
+            <param>Chinese Simplified: 结束列号.</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.SetParagraph_Table(Microsoft.Office.Interop.Word.Table,System.Int32,System.Int32)">
+            <summary>  
+            <para>Set the table content alignment Align horizontal direction, Vertical vertical direction (left, center, right aligned with the corresponding Align and Vertical value of -1,0,1).</para>
+            <para>Chinese Simplified: 设置表格内容对齐方式 Align水平方向，Vertical垂直方向(左对齐，居中对齐，右对齐分别对应Align和Vertical的值为-1,0,1)。</para>
+            </summary>  
+            <param name="table">
+            <para>Table name.</para>  
+            <param>Chinese Simplified: 表格名称。</param>  
+            </param>
+            <param name="Align">
+            <para> Alignment  horizontal direction.</para>  
+            <param>Chinese Simplified: 水平对齐方式。</param>  
+            </param>
+            <param name="Vertical">
+            <para> Vertical vertical direction.</para>  
+            <param>Chinese Simplified: 垂直对齐方式。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.SetFont_Table(Microsoft.Office.Interop.Word.Table,System.String,System.Double)">
+            <summary>  
+            <para>Set table font.</para>
+            <para>Chinese Simplified: 设置表格字体。</para>
+            </summary>  
+            <param name="table">
+            <para>Table name.</para>  
+            <param>Chinese Simplified: 表格名称。</param>  
+            </param>
+            <param name="fontName">
+            <para> Font name.</para>  
+            <param>Chinese Simplified: 字体名称。</param>  
+            </param>
+            <param name="size">
+            <para> Font size.</para>  
+            <param>Chinese Simplified: 字体大小。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.UseBorder(System.Int32,System.Boolean)">
+            <summary>  
+            <para>Whether use talbe border.</para>
+            <para>Chinese Simplified: 是否使用边框。</para>
+            </summary>  
+            <param name="n">
+            <para>Number of talbe.</para>  
+            <param>Chinese Simplified: 表格的序号。</param>  
+            </param>
+            <param name="use">
+            <para> bool ture or fasle.</para>  
+            <param>Chinese Simplified: 布尔量，是否使用。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.AddRow(System.Int32)">
+            <summary>  
+            <para>Insert a row into the table, and the serial number of the N table starts at 1.</para>
+            <para>Chinese Simplified: 给表格插入一行,n表格的序号从1开始记。</para>
+            </summary>  
+            <param name="n">
+            <para>Number of talbe.</para>  
+            <param>Chinese Simplified: 表格的序号。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.AddRow(Microsoft.Office.Interop.Word.Table)">
+            <summary>  
+            <para>Add a row to the table.</para>
+            <para>Chinese Simplified: 给表格添加一行。</para>
+            </summary>  
+            <param name="table">
+            <para>Table name.</para>  
+            <param>Chinese Simplified: 表格名称。</param>  
+            </param>
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.AddRow(System.Int32,System.Int32)">
+            <summary>  
+            <para>Insert the rows line to the table, n as the serial number of the table.</para>
+            <para>Chinese Simplified: 给表格插入rows行,n为表格的序号。</para>
+            </summary>  
+            <param name="n">
+            <para>Number of talbe.</para>  
+            <param>Chinese Simplified: 表格的序号。</param>  
+            </param>
+            <param name="rows">
+            <para>Number of rows.</para>  
+            <param>Chinese Simplified: 添加的行数。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.InsertCell(Microsoft.Office.Interop.Word.Table,System.Int32,System.Int32,System.String)">
+            <summary>  
+            <para>Cells in the table to insert elements, where the table row column table, line number, column number, value insertion element.</para>
+            <para>Chinese Simplified: 给表格中单元格插入元素，table所在表格，row行号，column列号，value插入的元素。</para>
+            </summary>  
+            <param name="table">
+            <para>Table name.</para>  
+            <param>Chinese Simplified: 表格名称。</param>  
+            </param>
+            <param name="row">
+            <para>Number of row.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param> 
+            <param name="column">
+            <para>Number of column.</para>  
+            <param>Chinese Simplified: 列数。</param>  
+            </param> 
+            <param name="value">
+            <para>Insert value.</para>  
+            <param>Chinese Simplified: 所插入的数值。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.InsertCell(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>  
+            <para>Cells in the table to insert elements, n table number to start from the 1 row column, line number, column number, value insertion element.</para>
+            <para>Chinese Simplified: 给表格中单元格插入元素，n表格的序号从1开始记，row行号，column列号，value插入的元素。</para>
+            </summary>  
+            <param name="n">
+            <para>Number of talbe.</para>  
+            <param>Chinese Simplified: 表格的序号。</param>  
+            </param>
+            <param name="row">
+            <para>Number of row.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param> 
+            <param name="column">
+            <para>Number of column.</para>  
+            <param>Chinese Simplified: 列数。</param>  
+            </param> 
+            <param name="value">
+            <para>Insert value.</para>  
+            <param>Chinese Simplified: 所插入的数值。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.InsertCell(System.Int32,System.Int32,System.Int32,System.String[])">
+            <summary>  
+            <para>To insert a row of data table, n table number, row number, columns number, values insert value.</para>
+            <para>Chinese Simplified: 给表格插入一行数据，n为表格的序号，row行号，columns列数，values插入的值。</para>
+            </summary>  
+            <param name="n">
+            <para>Number of talbe.</para>  
+            <param>Chinese Simplified: 表格的序号。</param>  
+            </param>
+            <param name="row">
+            <para>Number of row.</para>  
+            <param>Chinese Simplified: 行数。</param>  
+            </param> 
+            <param name="columns">
+            <para>Number of column.</para>  
+            <param>Chinese Simplified: 列数。</param>  
+            </param> 
+            <param name="values">
+            <para>Insert value.</para>  
+            <param>Chinese Simplified: 所插入的数值。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.InsertPicture(System.String,System.String,System.Single,System.Single)">
+            <summary>  
+            <para>To insert a picture.</para>
+            <para>Chinese Simplified: 插入图片。</para>
+            </summary>  
+            <param name="bookmark">
+            <para>Bookmark String.</para>  
+            <param>Chinese Simplified: 书签字符串名称。</param>  
+            </param>
+            <param name="picturePath">
+            <para>The picture file path.</para>  
+            <param>Chinese Simplified: 图片的文件地址。</param>  
+            </param> 
+            <param name="width">
+            <para>The width of picture.</para>  
+            <param>Chinese Simplified: 图片的宽度。</param>  
+            </param> 
+            <param name="hight">
+            <para>The hight of pciture.</para>  
+            <param>Chinese Simplified: 图片的高度。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.InsertText(System.String,System.String)">
+            <summary>  
+            <para>Insert a paragraph of text, text for text content.</para>
+            <para>Chinese Simplified: 插入一段文字。</para>
+            </summary>  
+            <param name="bookmark">
+            <para>Bookmark String.</para>  
+            <param>Chinese Simplified: 书签字符串名称。</param>  
+            </param>
+            <param name="text">
+            <para>Text content.</para>  
+            <param>Chinese Simplified: text为文字内容。</param>  
+            </param> 
+        </member>
+        <member name="M:SeeSharpTools.JY.Report.WordReport.killWinWordProcess">
+            <summary>
+            杀掉winword.exe进程
+            </summary>
+            <summary>  
+            <para>kill the process of  winword.exe.</para>
+            <para>Chinese Simplified:  杀掉winword.exe进程。</para>
+            </summary>  
+        </member>
+    </members>
+</doc>

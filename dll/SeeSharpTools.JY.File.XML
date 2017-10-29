@@ -1,0 +1,2124 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeeSharpTools.JY.File</name>
+    </assembly>
+    <members>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.#ctor(System.String,SeeSharpTools.JY.File.FileOperation)">
+            <summary>
+            创建WaveformFile对象，指定文件路径
+            </summary>
+            <param name="filePath">文件路径</param>
+            <param name="mode">文件操作类型</param>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile.FORMATLENGH">
+            <summary>
+            格式信息长度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile.FILEHEAD">
+            <summary>
+            文件头长度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._fileOperation">
+            <summary>
+            文件操作模式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._fileStream">
+            <summary>
+            FileStream对象，可操作字节或字节数组
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._sampleInformation">
+            <summary>
+            采样信息，作用是在将部分属性信息打包成类，方便后续写文件时的序列化操作
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._fileHeadLengh">
+            <summary>
+            记录已写入的文件头的长度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._fileClosed">
+            <summary>
+            文件是否关闭
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._writeIndex">
+            <summary>
+            写数据指针，记录已写入的数据长度，单位为sample
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._readIndex">
+            <summary>
+            读数据指针，指定读取数据的起始位置，单位为sample
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._fileMenu">
+            <summary>
+            文件目录信息，记录各类信息的长度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._fileIndexInHead">
+            <summary>
+            文件指针是否在文件头
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._dataWrited">
+            <summary>
+            记录是否写入过数据
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.FileFormat">
+            <summary>
+            文件格式，Stream/Multi-Record
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.AnalogWaveformFile._dataType">
+            <summary>
+            数据格式，Int16/Int32/Float/Double
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.ByteOrder">
+            <summary>
+            字节序，Little Endian/Big Endian
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.ArchiveInformation">
+            <summary>
+            归档信息
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.NumberOfChannels">
+            <summary>
+            通道数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.SampleRate">
+            <summary>
+            采样率，S/s
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.DataLength">
+            <summary>
+            数据长度，以Sample为单位
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.Channels">
+            <summary>
+            各通道采样信息，包括通道名称、采集量程、换算
+            因子、物理单位名称和备注
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.DataStartTime">
+            <summary>
+            数据起始点的时间
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.TimeLabels">
+            <summary>
+            时间戳标签序列，可定义一组标签来标识指定数据采
+            样点所在的时间，当文件格式为Stream时可用于对长
+            时间连续数据的时间修正，当文件格式为MultiRecord时用于标识各Record的起始点时间信息
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.AnalogWaveformFile.CustomLabels">
+            <summary>
+            自定义标签序列，可定义一组标签来保存备注信息
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Open(System.String,SeeSharpTools.JY.File.FileOperation)">
+            <summary>
+            创建新文件或打开文件
+            </summary>
+            <param name="filePath">文件路径</param>
+            <param name="mode">文件操作类型</param>
+            <remarks>如果构造函数中已指定路径，则打开操作只能在文件close之后进行</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Close">
+            <summary>
+            关闭文件,写入文件头和文件尾信息
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Write(System.Double[0:,0:])">
+            <summary>
+            将二维数组的double类型数据转换成原始字节数据写入文件中
+            </summary>
+            <param name="data">存放数据的二维数组</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Write(System.Single[0:,0:])">
+            <summary>
+            将二维数组的float类型数据转换成原始字节数据写入文件中
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Write(System.Int16[0:,0:])">
+            <summary>
+            将二维数组的short类型数据转换成原始字节数据写入文件中
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Write(System.Int32[0:,0:])">
+            <summary>
+            将二维数组的int类型数据转换成原始字节数据写入文件中
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Write(System.Double[])">
+            <summary>
+            将一维数组的double类型数据转换成原始字节数据写入文件中
+            </summary>
+            <param name="data">存放数据的一维数组</param>
+            <remarks>如果是多通道数据，按通道交错排列</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Write(System.Single[])">
+            <summary>
+            将一维数组的float类型数据转换成原始字节数据写入文件中
+            </summary>
+            <param name="data"></param>
+            <remarks>如果是多通道数据，按通道交错排列</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Write(System.Int16[])">
+            <summary>
+            将一维数组的short类型数据转换成原始字节数据写入文件中
+            </summary>
+            <param name="data"></param>
+            <remarks>如果是多通道数据，按通道交错排列</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Write(System.Int32[])">
+            <summary>
+            将一维数组的int类型数据转换成原始字节数据写入文件中
+            </summary>
+            <param name="data"></param>
+            <remarks>如果是多通道数据，按通道交错排列</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Read(System.Double[0:,0:])">
+            <summary>
+            从文件中读取字节数据，转换成指定的double类型
+            如果写入文件的数据类型是short或者int，读取的是scale转换后的数据
+            </summary>
+            <param name="data">存放数据的二维数组</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Read(System.Single[0:,0:])">
+            <summary>
+            从文件中读取字节数据，转换成指定的float类型
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Read(System.Int16[0:,0:])">
+            <summary>
+            从文件中读取字节数据，转换成指定的short类型
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Read(System.Int32[0:,0:])">
+            <summary>
+            从文件中读取字节数据，转换成指定的int类型
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Read(System.Double[])">
+            <summary>
+            从文件中读取字节数据，转换成指定的double类型
+            如果写入文件的数据类型是short或者int，读取的是scale转换后的数据
+            </summary>
+            <param name="data">存放数据的一维数组</param>
+            <remarks>如果是多通道数据，按通道交错排列</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Read(System.Single[])">
+            <summary>
+            从文件中读取字节数据，转换成指定的float类型
+            </summary>
+            <param name="data"></param>
+            <remarks>如果是多通道数据，按通道交错排列</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Read(System.Int16[])">
+            <summary>
+            从文件中读取字节数据，转换成指定的short类型
+            </summary>
+            <param name="data"></param>
+            <remarks>如果是多通道数据，按通道交错排列</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.Read(System.Int32[])">
+            <summary>
+            从文件中读取字节数据，转换成指定的int类型
+            </summary>
+            <param name="data"></param>
+            <remarks>如果是多通道数据，按通道交错排列</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.SetFilePosition(System.Int64)">
+            <summary>
+            设置文件读取位置，以Sample为单位
+            </summary>
+            <param name="position"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.GetFilePosition">
+            <summary>
+            获取当前文件读取位置，或已写入的数据长度，以Sample为单位
+            </summary>
+            <returns>当前已写入数据区的数据总长度</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.AddTimeLabel(System.String,System.Int64,System.DateTime,System.String)">
+            <summary>
+            添加时间标签到时间标签列表
+            </summary>
+            <param name="name"></param>
+            <param name="position"></param>
+            <param name="time"></param>
+            <param name="description"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.AddTimeLabel(SeeSharpTools.JY.File.TimeLabel)">
+            <summary>
+             添加时间标签到时间标签列表
+            </summary>
+            <param name="label"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.GetTimeLabel(System.String)">
+            <summary>
+            获取指定时间标签信息
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.AddCustomLabel``1(System.String,SeeSharpTools.JY.File.CustomLabelDataType,``0)">
+            <summary>
+            添加自定义备注，支持Int/Double/String
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.GetCustomLabel(System.String)">
+            <summary>
+            获取指定时间标签信息
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.InitPrivateFileds">
+            <summary>
+            初始化相关私有字段
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.InitFileContent(System.String,SeeSharpTools.JY.File.FileOperation)">
+            <summary>
+            创建FileStream对象，提取或初始化文件头信息
+            </summary>
+            <remarks>如果是只读操作，读取文件头和文件尾信息，
+            如果是读写操作，用65536个回车符将文件头填满</remarks>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.JsonSerializer``1(``0,System.Byte[]@)">
+            <summary>
+            将一个对象序列化为字符串，再转换成字节数组
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="rawByte"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.WriteHeadInfoToFile(System.IO.FileStream,System.Byte[],System.Int32)">
+            <summary>
+            将原始字节数组写入文件
+            </summary>
+            <param name="fs"></param>
+            <param name="rawByte"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.ReadHeadInfoFromFile(System.IO.FileStream,System.Byte[]@,System.Int32)">
+            <summary>
+            从文件中读取原始字节数据
+            </summary>
+            <param name="fs"></param>
+            <param name="rawByte"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.JsonDeSerializer``1(System.Byte[],``0@)">
+            <summary>
+            将字节数组反序列化为指定对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="rawByte"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.WriteDataToFile``1(System.IO.FileStream,``0[])">
+            <summary>
+            写入采样数据到文件
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fs"></param>
+            <param name="t"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.ReadDataFromFile``1(System.IO.FileStream,``0[])">
+            <summary>
+            从文件中读取采样数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fs"></param>
+            <param name="t"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.WriteDataToFile``1(System.IO.FileStream,``0[0:,0:])">
+            <summary>
+            写入采样数据到文件
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fs"></param>
+            <param name="t"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.AnalogWaveformFile.ReadDataFromFile``1(System.IO.FileStream,``0[0:,0:])">
+            <summary>
+            从文件中读取采样数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fs"></param>
+            <param name="t"></param>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.FileMenu">
+            <summary>
+            文件目录信息
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileMenu._archiveInfoLength">
+            <summary>
+            归档信息长度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileMenu._sampleInfoLength">
+            <summary>
+            采样信息长度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileMenu._timeLabelsLength">
+            <summary>
+            时间标签信息长度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileMenu._customLabelsLength">
+            <summary>
+            自定义标签信息长度
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileMenu._dataType">
+            <summary>
+            数据格式，Int16/Int32/Float/Double
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.ArchiveInformation">
+            <summary>
+            归档信息
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ArchiveInformation.FileVersion">
+            <summary>
+            只读，WaveformFile的版本
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ArchiveInformation.Author">
+            <summary>
+            可用于描述数据来源
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ArchiveInformation.DataLabel">
+            <summary>
+            可用于数据的归档标识
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ArchiveInformation.DataGroupID">
+            <summary>
+            可用于文件的关联标识
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ArchiveInformation.FileCreatedDate">
+            <summary>
+            只读，文件建立的时间
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ArchiveInformation.GeographicLocation">
+            <summary>
+            可用于描述地理位置信息
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ArchiveInformation.Description">
+            <summary>
+            可用于描述数据备注
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.ArchiveInformation.#ctor">
+            <summary>
+            归档信息，默认构造函数
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.ChannelInfo">
+            <summary>
+            通道信息
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ChannelInfo.Name">
+            <summary>
+            通道名称
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ChannelInfo.RangeHigh">
+            <summary>
+            通道量程上限
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ChannelInfo.RangeLow">
+            <summary>
+            通道量程下限
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ChannelInfo.Offset">
+            <summary>
+            偏移
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ChannelInfo.Scale">
+            <summary>
+            增益
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ChannelInfo.Unit">
+            <summary>
+            样点数据单位
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.ChannelInfo.Description">
+            <summary>
+            通道信息备注
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.ChannelInfo.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+            <remarks>设置偏移为0，斜率为1</remarks>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.TimeLabel">
+            <summary>
+            时间标签
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.TimeLabel.Name">
+            <summary>
+            标签名
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.TimeLabel.Position">
+            <summary>
+            样点位置，in samples from start
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.TimeLabel.Time">
+            <summary>
+            样点时间
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.TimeLabel.Description">
+            <summary>
+            时间标签备注
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.TimeLabel.#ctor(System.String,System.Int64,System.DateTime,System.String)">
+            <summary>
+            构造函数，设置初始化值
+            </summary>
+            <param name="name"></param>
+            <param name="position"></param>
+            <param name="time"></param>
+            <param name="description"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.TimeLabel.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.CustomLabel">
+            <summary>
+            自定义标签
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CustomLabel.#ctor(System.String,SeeSharpTools.JY.File.CustomLabelDataType,System.Object)">
+            <summary>
+            构造函数，设置初始化值
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CustomLabel.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.CustomLabel.Name">
+            <summary>
+            标签名
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.CustomLabel._dataType">
+            <summary>
+            自定义标签数据类型
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.CustomLabel._dataValue">
+            <summary>
+            自定义标签数据类型所对应数据的值
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.CustomLabel.DataType">
+            <summary>
+            自定义标签数据类型
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CustomLabel.SetValue``1(``0)">
+            <summary>
+            设置值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CustomLabel.GetValue``1">
+            <summary>
+            取值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.FileFormat">
+            <summary>
+            文件格式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileFormat.Stream">
+            <summary>
+            Stream
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileFormat.MultiRecord">
+            <summary>
+            MultiRecord
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.DataType">
+            <summary>
+            数据格式
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.DataType.Int16">
+            <summary>
+            short
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.DataType.Int32">
+            <summary>
+            int
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.DataType.Float">
+            <summary>
+            float
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.DataType.Double">
+            <summary>
+            double
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.ByteOrder">
+            <summary>
+            字节序
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ByteOrder.LittleEndian">
+            <summary>
+            将低序字节存储在起始地址
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ByteOrder.BigEndian">
+            <summary>
+            将高序字节存储在起始地址
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.CustomLabelDataType">
+            <summary>
+            自定义标签数据类型
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.CustomLabelDataType.Int16">
+            <summary>
+            short
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.CustomLabelDataType.Int32">
+            <summary>
+            int
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.CustomLabelDataType.Double">
+            <summary>
+            double
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.CustomLabelDataType.String">
+            <summary>
+            string
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.FileOperation">
+            <summary>
+            文件操作类型
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileOperation.CreateNew">
+            <summary>
+            指定操作系统应创建新文件
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileOperation.Create">
+            <summary>
+            指定操作系统应创建新文件。如果文件已存在，它将被覆盖。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileOperation.Open">
+            <summary>
+            指定操作系统应打开现有文件。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileOperation.OpenOrCreate">
+            <summary>
+            指定操作系统应打开文件（如果文件存在）；否则，应创建新文件。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileOperation.Truncate">
+            <summary>
+            指定操作系统应打开现有文件。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileOperation.Append">
+            <summary>
+            若存在文件，则打开该文件并查找到文件尾，或者创建一个新文件。
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.FileOperation.OpenWithReadOnly">
+            <summary>
+            打开文件，只读模式
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.SampleInformation">
+            <summary>
+            采样信息
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.SampleInformation.NumberOfChannels">
+            <summary>
+            通道数
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.SampleInformation.SampleRate">
+            <summary>
+            采样率，S/s
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.SampleInformation.DataLength">
+            <summary>
+            数据长度，以Sample为单位
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.SampleInformation.Channels">
+            <summary>
+            各通道采样信息，包括通道名称、采集量程、换算
+            因子、物理单位名称和备注
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.SampleInformation.FileFormat">
+            <summary>
+            文件格式，Stream/Multi-Record
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.SampleInformation.ByteOrder">
+            <summary>
+            字节序，Little Endian/Big Endian
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.SampleInformation.DataStartTime">
+            <summary>
+            数据起始点的时间
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.WaveformFileException">
+            <summary>
+            文件异常类
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.WaveformFileException.ErrorCode">
+            <summary>
+            异常错误代码
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.WaveformFileException.#ctor(SeeSharpTools.JY.File.ErrorCode)">
+            <summary>
+            构造函数，指定异常错误代码
+            </summary>
+            <param name="er"></param>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.ErrorCode">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.SameLabel">
+            <summary>
+            添加相同标签
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.LabelNotExit">
+            <summary>
+            标签不存在
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.CannotCall">
+            <summary>
+            不允许调用
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.FileAccessError">
+            <summary>
+            权限错误
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.OpenWrongFile">
+            <summary>
+            打开了错误文件
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.FileNotClosed">
+            <summary>
+            文件还未关闭
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.ReadDataTypeError">
+            <summary>
+            读取数据类型指定错误
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.DataTypeSetError">
+            <summary>
+            数据类型设置错误
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.ErrorCode.WriteDifferentDataType">
+            <summary>
+            写入不同数据类型的数据
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.BinHandler">
+            <summary>
+            Bin文件读写类
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadData(System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维double数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional double array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional string array</para>
+                    <para>Chinese Simplified:读取后的二维string数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadData(System.String,System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维double数组。
+            Read data from binary file as two dimensional double array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <param name="colNum">
+                    <para>The column count of read data.</para>
+                    <para>Chinese Simplified:读出数组的列数。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional string array</para>
+                    <para>Chinese Simplified:读取后的二维string数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadDoubleData(System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadDoubleData(System.String,System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <param name="colNum">
+                    <para>The column count of read data.</para>
+                    <para>Chinese Simplified:读出数组的列数。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadIntData(System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadIntData(System.String,System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <param name="colNum">
+                    <para>The column count of read data.</para>
+                    <para>Chinese Simplified:读出数组的列数。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadUIntData(System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadUIntData(System.String,System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <param name="colNum">
+                    <para>The column count of read data.</para>
+                    <para>Chinese Simplified:读出数组的列数。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadShortData(System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadShortData(System.String,System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <param name="colNum">
+                    <para>The column count of read data.</para>
+                    <para>Chinese Simplified:读出数组的列数。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadUShortData(System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadUShortData(System.String,System.Int32)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <param name="colNum">
+                    <para>The column count of read data.</para>
+                    <para>Chinese Simplified:读出数组的列数。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadData">
+            <summary>
+            在bin文件中读取数据为二维double数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional double array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional string array</para>
+                    <para>Chinese Simplified:读取后的二维string数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadData(System.String)">
+            <summary>
+            在bin文件中读取数据为二维double数组。
+            Read data from binary file as two dimensional double array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional string array</para>
+                    <para>Chinese Simplified:读取后的二维string数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadDoubleData">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadDoubleData(System.String)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadIntData">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadIntData(System.String)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadUIntData">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadUIntData(System.String)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadShortData">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadShortData(System.String)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadUShortData">
+            <summary>
+            在bin文件中读取数据为二维double数组文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from binary file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.ReadUShortData(System.String)">
+            <summary>
+            在bin文件中读取数据为二维string数组。
+            Read data from binary file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入string类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.String[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入string类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入string类型二维数据，通过弹窗选择文件路径
+            Write two dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.String[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入string类型二维数据
+            Write two dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.Double[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.Double[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.Double[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据，通过弹窗选择文件路径
+            Write two dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.Double[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据
+            Write two dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.Int32[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.Int32[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.Int32[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据，通过弹窗选择文件路径
+            Write two dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.Int32[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据
+            Write two dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.UInt32[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.UInt32[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.UInt32[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据，通过弹窗选择文件路径
+            Write two dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.UInt32[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据
+            Write two dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.Int16[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.Int16[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.Int16[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据，通过弹窗选择文件路径
+            Write two dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.Int16[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据
+            Write two dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.UInt16[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.UInt16[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型一维数据，通过弹窗选择文件路径
+            Write one dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.UInt16[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据，通过弹窗选择文件路径
+            Write two dimensional data to binary file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.WriteData(System.String,System.UInt16[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在bin文件中写入double类型二维数据
+            Write two dimensional data to binary file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.#ctor(System.String,System.Int32)">
+            <summary>
+            流式读取的构造方法
+            </summary>
+            <param name="filePath">读取文件的路径</param>
+            <param name="colNum">读取文件的列数</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.#ctor(System.String)">
+            <summary>
+            流式读取的构造方法
+            </summary>
+            <param name="filePath">读取文件的路径</param>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.#ctor">
+            <summary>
+            流式读取的构造方法
+            </summary>
+        </member>
+        <member name="P:SeeSharpTools.JY.File.BinHandler.ReadOver">
+            <summary>
+            流式读取结束
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.StopStreamRead">
+            <summary>
+            停止流式操作
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.StreamRead``1(System.Int32)">
+            <summary>
+            流式读取数据
+            </summary>
+            <param name="sampleCount">读取的样点数</param>
+            <returns>包含数据的数组</returns>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.BinHandler.StreamRead``1(``0[0:,0:])">
+            <summary>
+            流式读取数据
+            </summary>
+            <param name="dataBuf">数据缓存</param>
+            <returns>读取到的数组行数</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.CsvHandler">
+            <summary>
+            Csv文件数据读写
+            Csv file write and Read.
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadData">
+            <summary>
+            在csv文件中读取数据为二维double数组，通过弹窗选择文件路径。
+            Read data from csv file as two dimensional double array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional string array</para>
+                    <para>Chinese Simplified:读取后的二维string数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadData(System.String)">
+            <summary>
+            在 csv文件中读取数据为二维double数组。
+            Read data from csv file as two dimensional double array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional string array</para>
+                    <para>Chinese Simplified:读取后的二维string数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadDoubleData">
+            <summary>
+            在csv文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from csv file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadDoubleData(System.String)">
+            <summary>
+            在csv文件中读取数据为二维string数组。
+            Read data from csv file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadIntData">
+            <summary>
+            在csv文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from csv file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadIntData(System.String)">
+            <summary>
+            在csv文件中读取数据为二维string数组。
+            Read data from csv file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadUIntData">
+            <summary>
+            在csv文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from csv file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadUIntData(System.String)">
+            <summary>
+            在csv文件中读取数据为二维string数组。
+            Read data from csv file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadShortData">
+            <summary>
+            在csv文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from csv file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadShortData(System.String)">
+            <summary>
+            在csv文件中读取数据为二维string数组。
+            Read data from csv file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadUShortData">
+            <summary>
+            在csv文件中读取数据为二维string数组，通过弹窗选择文件路径。
+            Read data from csv file as two dimensional string array. File path can be choosen from the GUI.
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.ReadUShortData(System.String)">
+            <summary>
+            在csv文件中读取数据为二维string数组。
+            Read data from csv file as two dimensional string array.
+                <param name="filePath">
+                    <para>The full path of the file to read.</para>
+                    <para>Chinese Simplified:待读取文件的完整路径。</para>
+                </param>
+                <returns >
+                    <para>The read two dimensional double array</para>
+                    <para>Chinese Simplified:读取后的二维double数组</para>
+                </returns>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入string类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.String[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入string类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入string类型数据，通过弹窗选择文件路径
+            Write two dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.String[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入string类型数据
+            Write two dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.Double[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.Double[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.Double[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write two dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.Double[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据
+            Write two dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.Int32[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.Int32[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.Int32[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write two dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.Int32[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据
+            Write two dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.UInt32[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.UInt32[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.UInt32[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write two dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.UInt32[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据
+            Write two dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.Int16[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.Int16[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.Int16[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write two dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.Int16[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据
+            Write two dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.UInt16[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>One dimensional datas to write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.UInt16[],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write one dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.UInt16[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据，通过弹窗选择文件路径
+            Write two dimensional data to csv file, file path can be choosen from the pop up GUI.
+                <param name="data">
+                    <para>Two dimensional datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="M:SeeSharpTools.JY.File.CsvHandler.WriteData(System.String,System.UInt16[0:,0:],SeeSharpTools.JY.File.WriteMode)">
+            <summary>
+            在csv文件中写入double类型数据
+            Write two dimensional data to csv file.
+                <param name="filePath">
+                    <para>The full path of the file to write.</para>
+                    <para>Chinese Simplified:待写入文件的完整路径。</para>
+                </param>
+                <param name="data">
+                    <para>One dimension datas to be write.</para>
+                    <para>Chinese Simplified:待写入文件的一维数组</para>
+                </param>
+                <param name="writeMode">
+                    <para>Write Mode when file exist.</para>
+                    <para>Chinese Simplified:文件已存在时的写入模式</para>
+                </param>
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.WriteMode">
+            <summary>
+            文件存在时的写入模式
+            Write mode when file exist
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.WriteMode.Append">
+            <summary>
+            文件存在时续写
+            Append to file
+            </summary>
+        </member>
+        <member name="F:SeeSharpTools.JY.File.WriteMode.OverLap">
+            <summary>
+            文件存在时覆盖
+            Overlap file
+            </summary>
+        </member>
+        <member name="T:SeeSharpTools.JY.File.FileUtil">
+            <summary>
+            文件操作工具类
+            File Read And Write Handler
+            </summary>
+        </member>
+    </members>
+</doc>
